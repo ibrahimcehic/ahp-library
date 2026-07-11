@@ -3,3 +3,4 @@
  */
 
 export * from './lib/ahp-library';
+export * from './lib/shared/services/matrica-service'

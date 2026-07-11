@@ -1,0 +1,95 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+/* Glavni kontejner koji drži cijeli layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Pokriva cijeli ekran */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- HEADER STILOVI --- */
+.app-header {
+  background-color: #1e293b; /* Tamno plava */
+  color: #ffffff;
+  padding: 15px 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #38bdf8; /* Svijetlo plava na hover */
+}
+
+/* --- BODY STILOVI (KLJUČNI DIO) --- */
+.app-body {
+  flex: 1; /* Automatski uzima sav slobodan prostor između headera i footera */
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  /* Trenutno je potpuno prazan i spreman za vaš kod */
+}
+
+/* --- FOOTER STILOVI --- */
+.app-footer {
+  background-color: #0f172a; /* Još tamnija plava */
+  color: #94a3b8;
+  text-align: center;
+  padding: 15px 20px;
+  font-size: 0.85rem;
+  border-top: 1px solid #1e293b;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- RESPONSIVE MEDIA QUERIES (Za mobitele) --- */
+@media (max-width: 600px) {
+  .header-content {
+    flex-direction: column; /* Na mobitelima logo ide iznad izbornika */
+    gap: 12px;
+    text-align: center;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-links a {
+    margin: 0 10px; /* Ravnomjeran razmak na manjim ekranima */
+  }
+}
