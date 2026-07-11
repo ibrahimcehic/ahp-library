@@ -34,6 +34,12 @@
     },
     {
       "path": "./projects/ahp-library/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ahp-test-app/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/ahp-test-app/tsconfig.spec.json"
     }
   ]
 }
