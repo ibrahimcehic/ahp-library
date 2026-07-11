@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card" style="width: 18rem" [formGroup]="kriterijumForm">
+        <div class="card-body">
+          <h5 class="card-title">Novi kriterijum</h5>
+          <div class="input-group mb-3">
+            <span class="input-group-text w-100" id="inputGroup-sizing-default">Naziv kriterijuma</span>
+            <input
+              formControlName="nazivKriterijuma"
+              type="text"
+              class="form-control w-100"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+            />
+          </div>
+          <div class="form-check">
+            <input
+              formControlName="kriterijumKoristi"
+              class="form-check-input"
+              type="radio"
+              name="kriterijumKoristi"
+              id="radioDefault1"
+              [value]="true"
+            />
+            <label class="form-check-label" for="radioDefault1"> Kriterijum koristi </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="kriterijumKoristi"
+              name="kriterijumKoristi"
+              id="radioDefault2"
+              [value]="false"
+            />
+            <label class="form-check-label" for="radioDefault2"> Kriterijum troška </label>
+          </div>
+          <button type="button" class="btn btn-success" (click)="dodajKriterijum()">Dodaj</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card-body">
+        <h4>Lista kriterijuma</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Naziv</th>
+              <th scope="col">Kriterijum Koristi</th>
+              <th scope="col">Akcije</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (kriterijum of kriterijumiIzServisa; track $index; let i = $index) {
+              <tr>
+                <th>{{ i + 1 }}</th>
+                <td>{{ kriterijum.name }}</td>
+                <td>{{ kriterijum.kriterijumKoristi }}</td>
+                <td>
+                  <button type="button" class="btn btn-danger mx-2" (click)="deleteKriterijum(i)">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

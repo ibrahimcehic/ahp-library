@@ -1,3 +1,94 @@
-<p>home works!</p>
-<button (click)="test()">Test button</button>
-<button type="button" class="btn btn-primary">Primary</button>
+<div class="container my-5">
+  <!-- Glavni kontejner za liniju i korake -->
+  <div class="row text-center position-relative g-0">
+    <!-- Pozadinska siva linija koja povezuje sve korake -->
+    <div
+      class="position-absolute top-50 start-0 translate-middle-y w-100 bg-light-subtle border-top border-2"
+      style="z-index: 0; height: 0"
+    ></div>
+
+    <!-- Korak 1: Završen -->
+    <div class="col position-relative" style="z-index: 1">
+      <span
+        [ngClass]="getStepClass(0)"
+        class="d-inline-flex align-items-center justify-content-center rounded-circle"
+        style="width: 40px; height: 40px"
+        >1</span
+      >
+      <p [ngClass]="getParagraphClass(0)">Unos kriterijuma</p>
+    </div>
+
+    <!-- Korak 2: Završen -->
+    <div class="col position-relative" style="z-index: 1">
+      <span
+        [ngClass]="getStepClass(1)"
+        class="d-inline-flex align-items-center justify-content-center rounded-circle fw-bold"
+        style="width: 40px; height: 40px"
+        >2</span
+      >
+      <p [ngClass]="getParagraphClass(1)">Matrica kriterijuma</p>
+    </div>
+
+    <!-- Korak 3: TRENUTNO AKTIVAN (Dodat prsten oko broja pomoću border-a) -->
+    <div class="col position-relative" style="z-index: 1">
+      <span
+        [ngClass]="getStepClass(2)"
+        class="d-inline-flex align-items-center justify-content-center rounded-circle fw-bold"
+        style="width: 40px; height: 40px"
+        >3</span
+      >
+      <p [ngClass]="getParagraphClass(2)">Tezine</p>
+    </div>
+
+    <!-- Korak 4: Na čekanju -->
+    <div class="col position-relative" style="z-index: 1">
+      <span
+        [ngClass]="getStepClass(3)"
+        class="d-inline-flex align-items-center justify-content-center rounded-circle fw-bold"
+        style="width: 40px; height: 40px"
+        >4</span
+      >
+      <p [ngClass]="getParagraphClass(3)">Alternative</p>
+    </div>
+
+    <!-- Korak 5: Na čekanju -->
+    <div class="col position-relative" style="z-index: 1">
+      <span
+        [ngClass]="getStepClass(4)"
+        class="d-inline-flex align-items-center justify-content-center rounded-circle fw-bold"
+        style="width: 40px; height: 40px"
+        >5</span
+      >
+      <p [ngClass]="getParagraphClass(4)">Rezultati</p>
+    </div>
+
+    <!-- Korak 6: Na čekanju -->
+    <div class="col position-relative" style="z-index: 1">
+      <span
+        [ngClass]="getStepClass(5)"
+        class="d-inline-flex align-items-center justify-content-center rounded-circle fw-bold"
+        style="width: 40px; height: 40px"
+        >6</span
+      >
+      <p [ngClass]="getParagraphClass(5)">Završeno</p>
+    </div>
+  </div>
+</div>
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-success mx-4" (click)="stepperCommands('prev')">Prev</button>
+      <button class="btn btn-success mx-4" (click)="stepperCommands('next')">Next</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      @if (activeSteper === 0) {
+        <app-unos-kriterijuma />
+      } @else if (activeSteper===1) {
+        <app-matrica-kriterijuma />
+      }
+
+    </div>
+  </div>
+</div>
