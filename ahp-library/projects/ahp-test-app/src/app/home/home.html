@@ -37,7 +37,7 @@
         style="width: 40px; height: 40px"
         >3</span
       >
-      <p [ngClass]="getParagraphClass(2)">Tezine</p>
+      <p [ngClass]="getParagraphClass(2)">Normalizacija matrice</p>
     </div>
 
     <!-- Korak 4: Na čekanju -->
@@ -87,6 +87,8 @@
         <app-unos-kriterijuma />
       } @else if (activeSteper===1) {
         <app-matrica-kriterijuma />
+      } @else if (activeSteper===2) {
+        <app-normalizacija-matrice/>
       }
 
     </div>

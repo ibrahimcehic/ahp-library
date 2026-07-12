@@ -1,0 +1,25 @@
+<!-- <button (click)="normalizacijaMatrice()">Normalizuj matricu</button>
+<button (click)="izracunajProsjecnuVrijednost()">Izracunaj Prosjecnu vrijednost</button> -->
+<table class="table">
+  <thead>
+    <tr>
+        <th>#</th>
+      @for(kriterijum of kriterijumi(); track $index; let i =$index){
+        <th>{{kriterijum.name}}</th>
+      }
+      <th> <b>Prosječna vrijednost</b> </th>
+    </tr>
+  </thead>
+ <tbody>
+    @for (row of normaliziranaMatrica(); track $index; let i = $index;) {
+    <tr>
+        <th>{{kriterijumi()[i].name }}</th>
+        @for (cell of normaliziranaMatrica(); track $index; let j = $index) {
+            <td>{{normaliziranaMatrica()[i][j]}}</td>
+        }
+        <td><b>{{tezinskiVektor()[i]}}</b></td>
+    </tr>
+    }
+    
+  </tbody> 
+</table>

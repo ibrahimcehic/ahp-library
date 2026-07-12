@@ -3,10 +3,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import {MatricaService} from 'ahp-library';
 import { UnosKriterijuma } from "../unos-kriterijuma/unos-kriterijuma";
 import { MatricaKriterijuma } from "../matrica-kriterijuma/matrica-kriterijuma";
+import { NormalizacijaMatrice } from "../normalizacija-matrice/normalizacija-matrice";
 
 @Component({
   selector: 'app-home',
-  imports: [NgClass, UnosKriterijuma, MatricaKriterijuma],
+  imports: [NgClass, UnosKriterijuma, MatricaKriterijuma, NormalizacijaMatrice],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -23,7 +24,6 @@ activeSteper: number=0;
     }else if(step == 'next' && this.activeSteper<5){
       this.activeSteper++;
     }
-   console.log("selected steper", this.activeSteper)
   }
 
   getStepClass(id:number){
