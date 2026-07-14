@@ -48,7 +48,7 @@
         style="width: 40px; height: 40px"
         >4</span
       >
-      <p [ngClass]="getParagraphClass(3)">Alternative</p>
+      <p [ngClass]="getParagraphClass(3)">Unos alternativa</p>
     </div>
 
     <!-- Korak 5: Na čekanju -->
@@ -89,6 +89,10 @@
         <app-matrica-kriterijuma />
       } @else if (activeSteper===2) {
         <app-normalizacija-matrice/>
+      } @else if ((activeSteper==3)) {
+        <app-unos-alternativa/>
+      }@else if (activeSteper==4) {
+        <app-rezultati/>
       }
 
     </div>

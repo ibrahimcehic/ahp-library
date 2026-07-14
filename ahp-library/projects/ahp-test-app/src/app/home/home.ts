@@ -4,10 +4,12 @@ import {MatricaService} from 'ahp-library';
 import { UnosKriterijuma } from "../unos-kriterijuma/unos-kriterijuma";
 import { MatricaKriterijuma } from "../matrica-kriterijuma/matrica-kriterijuma";
 import { NormalizacijaMatrice } from "../normalizacija-matrice/normalizacija-matrice";
+import { UnosAlternativa } from '../unos-alternativa/unos-alternativa';
+import { Rezultati } from "../rezultati/rezultati";
 
 @Component({
   selector: 'app-home',
-  imports: [NgClass, UnosKriterijuma, MatricaKriterijuma, NormalizacijaMatrice],
+  imports: [NgClass, UnosKriterijuma, MatricaKriterijuma, NormalizacijaMatrice, UnosAlternativa, Rezultati],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

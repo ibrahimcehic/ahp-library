@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+<div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Unos Nove Alternative</h5>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="alternativaForm" (ngSubmit)="spremiAlternativu()">
+                <!-- Naziv alternative -->
+                <div class="mb-4">
+                    <label for="nazivAlternative" class="form-label fw-bold">Naziv alternative</label>
+                    <input type="text" class="form-control form-control-lg" id="nazivAlternative" placeholder="Npr. Pametni telefon A" required formControlName="nameAlternativa">
+                </div>
+
+                <!-- Lista kriterijuma -->
+                <div class="mb-3" formArrayName="kriterijumi">
+                    <label class="form-label fw-bold d-block mb-3">Vrijednosti po kriterijumima</label>
+                    
+                    @for (kriterijum of listaKriterijuma(); track $index; let i = $index) {
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-light w-50">{{kriterijum.name}}</span>
+                        <input type="number" class="form-control" placeholder="Unesite vrijednost" required [formControlName]="i">
+                    </div>
+                }
+                </div>
+                            
+                
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">Spremi alternativu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+        </div>
+        <div class="col-8">
+            <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Pregled Unesenih Alternativa</h5>
+            <span class="badge bg-secondary">Ukupno: {{listaAlternativa().length}}</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" class="text-start">Naziv alternative</th>
+                        @for (kriterijum of listaKriterijuma(); track $index; let i = $index) {
+                            <th scope="col">{{kriterijum.name}}</th>
+                        }
+                        <th scope="col" style="min-width: 120px;">Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Alternativa 1 -->
+                     @for (alternativa of listaAlternativa(); track $index; let j = $index) {
+                    <tr>
+                        <td class="fw-bold text-start text-primary">{{alternativa.name}}</td>
+                        @for (kriterij of alternativa.kriterijumi; track $index) {
+                            <td>{{kriterij.value}}</td>
+                        }
+                        <td>
+                            <button class="btn btn-outline-danger btn-sm" title="Obriši" (click)="deleteAlternativa(j)">
+                                🗑️ <span class="d-none d-md-inline">Obriši</span>
+                            </button>
+                        </td>
+                    </tr>    
+                 }
+                </tbody>
+            </table>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
