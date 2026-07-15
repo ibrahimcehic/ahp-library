@@ -59,7 +59,7 @@
         style="width: 40px; height: 40px"
         >5</span
       >
-      <p [ngClass]="getParagraphClass(4)">Rezultati</p>
+      <p [ngClass]="getParagraphClass(4)">Rang lista</p>
     </div>
 
     <!-- Korak 6: Na čekanju -->
@@ -70,7 +70,7 @@
         style="width: 40px; height: 40px"
         >6</span
       >
-      <p [ngClass]="getParagraphClass(5)">Završeno</p>
+      <p [ngClass]="getParagraphClass(5)">Sumiranje rezultata- Kraj</p>
     </div>
   </div>
 </div>
@@ -93,6 +93,8 @@
         <app-unos-alternativa/>
       }@else if (activeSteper==4) {
         <app-rezultati/>
+      } @else if (activeSteper==5) {
+        <app-zavrseno />
       }
 
     </div>

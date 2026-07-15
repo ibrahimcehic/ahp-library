@@ -14,6 +14,7 @@
                         @for (kriterijum of listaKriterijuma; track $index; let i = $index) {
                             <th scope="col">{{kriterijum.name}}</th>
                         }
+                        <th scope="col" (click)="sortirajPoProsjeku()" style="cursor:pointer; user-select: none;">Prosjecna vrijednost alternative {{sortiranoUzlazno ? '▲' : '▼'}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +25,7 @@
                         @for (kriterij of alternativa.kriterijumi; track $index) {
                             <td>{{kriterij.value}}</td>
                         }
+                        <td>{{alternativa.value}}</td>
                     </tr>    
                  }
                 </tbody>

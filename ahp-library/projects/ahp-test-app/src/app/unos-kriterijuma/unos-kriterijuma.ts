@@ -22,21 +22,20 @@ export class UnosKriterijuma implements OnInit{
 
   kriterijumiIzServisa: Kriterijum[]=[];
 
+  nazivProjekta: string = "";
+
   dodajKriterijum() {
       this.dataS.dodajKriterijum({
         name: this.nazivKriterijuma?.value,
         kriterijumKoristi: this.kriterijumKoristi?.value
       });
       this.kriterijumiIzServisa =this.dataS.listaKriterjuma();
+      this.dataS.setNazivProjekta(this.nazivProjekta)
   }
 
   deleteKriterijum(index:number) {
     this.dataS.deleteKriterijum(index)
     this.kriterijumiIzServisa =this.dataS.listaKriterjuma();
-  }
-
-  test(){
-    console.log("ispis liste kriterijuma iz servisa: ",this.kriterijumiIzServisa)
   }
 
   get nazivKriterijuma() {

@@ -7,7 +7,7 @@ export class MatricaService {
   private _matricaKriterijuma = signal<number[][]>([]);
   private _sumaKolona = signal<number[]>([]);
   private _matricaKriterijumaNormalizirana = signal<number[][]>([]);
-  private _prosjecnaVrijednostKriterijuma = signal<number[]>([])
+  private _prosjecnaVrijednostKriterijuma = signal<number[]>([]);
 
   matricaKriterijuma = this._matricaKriterijuma.asReadonly();
   sumaKolona = this._sumaKolona.asReadonly();
@@ -23,7 +23,7 @@ export class MatricaService {
       }
     }
     this._matricaKriterijuma.set(novaMatrica);
-    this.inicijalizacijaSumeKolona()
+    this.inicijalizacijaSumeKolona();
     this.inicijalizacijaNormaliziraneMatrice(this.matricaKriterijuma.length);
   }
 
@@ -57,7 +57,6 @@ export class MatricaService {
       const novaMatrica = trenutnaMatrica.map((r) => [...r]);
       novaMatrica[i][j] = newValue;
       return novaMatrica;
-      
     });
   }
 
@@ -70,12 +69,12 @@ export class MatricaService {
   }
 
   proracunElemenataIspodDijagonale(i: number, j: number) {
-    this._matricaKriterijuma.update(trenutnaMatrica =>{
-      const novaMatrica = trenutnaMatrica.map(red => [...red]);
-      novaMatrica[j][i] = parseFloat((1/novaMatrica[i][j]).toFixed(3));
-      return novaMatrica; 
-    })
-     this.izracunajSumuKolona()
+    this._matricaKriterijuma.update((trenutnaMatrica) => {
+      const novaMatrica = trenutnaMatrica.map((red) => [...red]);
+      novaMatrica[j][i] = parseFloat((1 / novaMatrica[i][j]).toFixed(3));
+      return novaMatrica;
+    });
+    this.izracunajSumuKolona();
   }
 
   izracunajSumuKolona() {
@@ -87,34 +86,90 @@ export class MatricaService {
         sumaPom += this._matricaKriterijuma()[j][i];
         sumaPom = parseFloat(sumaPom.toFixed(4));
         this.updateSumaKolona(i, sumaPom);
-      } 
+      }
     }
   }
 
-normalizovanaMatrica = computed<number[][]>(()=>{
-  const matrica = this._matricaKriterijuma()
-  const n = matrica.length;
-  if(n===0)return [];
+  normalizovanaMatrica = computed<number[][]>(() => {
+    const matrica = this._matricaKriterijuma();
+    const n = matrica.length;
+    if (n === 0) return [];
 
-  const novaNormalizovanaMatrica: number[][]=[];
-  for(let i=0; i<n; i++){
-    novaNormalizovanaMatrica[i]=[]
-    for(let j=0; j<n; j++){
-      const suma = this.sumaKolona()[j];
-      novaNormalizovanaMatrica[i][j] = suma !==0 ? (matrica[i][j]/suma):0;
+    const novaNormalizovanaMatrica: number[][] = [];
+    for (let i = 0; i < n; i++) {
+      novaNormalizovanaMatrica[i] = [];
+      for (let j = 0; j < n; j++) {
+        const suma = this.sumaKolona()[j];
+        novaNormalizovanaMatrica[i][j] = suma !== 0 ? matrica[i][j] / suma : 0;
+      }
     }
-  }
-  return novaNormalizovanaMatrica
+    return novaNormalizovanaMatrica;
+  });
+
+  tezinskiVektor = computed<number[]>(() => {
+    const normalizovana = this.normalizovanaMatrica();
+    const n = normalizovana.length;
+    if (n === 0) return [];
+
+    return normalizovana.map((red) => {
+      const sumaReda = red.reduce((acc, vrijednost) => acc + vrijednost, 0);
+      return sumaReda / n;
+    });
+  });
+
+  //odredjivanje lambdamax
+  pocetnaMatricaPutaVektorTezina = computed<number[]>(() => {
+    const n = this.matricaKriterijuma().length;
+    const listaLambdaMax: number[] = new Array(n).fill(0)
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        listaLambdaMax[i] += this.matricaKriterijuma()[i][j] * this.tezinskiVektor()[j];
+      }
+    }
+    return listaLambdaMax;
+  });
+
+  lambdaMax = computed<number>(() => {
+    const n = this.pocetnaMatricaPutaVektorTezina().length;
+    if(n === 0 )return 0
+    const y = this.pocetnaMatricaPutaVektorTezina();
+    const w = this.tezinskiVektor()
+    let sumaOmjera = 0;
+    for (let i = 0; i < n; i++) {
+      if(w[i] !=0){
+        sumaOmjera += y[i]/w[i]
+      }
+    }
+    return sumaOmjera / n;
+  });
+
+indeksKoenzistencijeCI = computed<number>(()=>{
+   const n = this.pocetnaMatricaPutaVektorTezina().length;
+   if(n<=0) return 0;
+   return (this.lambdaMax()-n)/(n-1)
+
 })
 
-  tezinskiVektor = computed<number[]>(()=>{
-    const normalizovana = this.normalizovanaMatrica()
-    const n = normalizovana.length;
-    if(n===0) return [];
+omjerKonzistencijeCR = computed<number>(()=>{
+  return this.indeksKoenzistencijeCI()/this.randomIndex()
+})
 
-    return normalizovana.map(red=> {
-      const sumaReda = red.reduce((acc,vrijednost)=> acc + vrijednost, 0)
-      return sumaReda/n
-    })
-  })
+// RI index 
+randomIndex = computed <number>(()=>{
+  switch (this.matricaKriterijuma().length){
+     case 1:
+      case 2:  return 0.00;
+      case 3:  return 0.58;
+      case 4:  return 0.90;
+      case 5:  return 1.12;
+      case 6:  return 1.24;
+      case 7:  return 1.32;
+      case 8:  return 1.41;
+      case 9:  return 1.45;
+      case 10: return 1.49;
+      default: return -1; // Fallback for unsupported sizes
+  }
+})
 }
+
+

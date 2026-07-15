@@ -1,0 +1,126 @@
+<div class="container my-5">
+    <!-- Kontrolna traka (Skrivena u PDF-u) -->
+    <div class="d-flex justify-content-between align-items-center mb-4 d-print-none">
+        <a href="#" class="btn btn-outline-secondary" routerLink="/">
+            ⬅ Nazad na unos
+        </a>
+       <!--  <button class="btn btn-success btn-lg shadow-sm" onclick="generisiPDF()">
+            📄 Preuzmi AHP Izvještaj (PDF)
+        </button> -->
+    </div>
+
+    <!-- Glavni kontejner izvještaja koji ide u PDF -->
+    <div id="ahp-izvjestaj" class="bg-white p-4 p-md-5 border rounded shadow-sm">
+        
+        <!-- Zaglavlje izvještaja -->
+        <div class="row border-bottom pb-4 mb-4 text-center text-md-start">
+            <div class="col-md-8">
+                <span class="text-muted text-uppercase fw-bold small">AHP Analiza i Rezultati</span>
+                <h1 class="display-5 fw-bold text-primary my-2">Finalni Izvještaj Višekriterijumskog Odlučivanja</h1>
+                <p class="text-muted mb-0">Kreirano: {{currentDate | date}}<span id="trenutni-datum"></span> | Projekat: {{projectName}}</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0 d-flex flex-column justify-content-center">
+                <div class="p-3 bg-light rounded text-center border">
+                    <span class="d-block text-muted small text-uppercase">Indeks Konzistentnosti (CR)</span>
+                    <strong class="fs-3 text-success" *ngIf="indeksKonzistentnostiCR<0.1">{{indeksKonzistentnostiCR}}</strong>
+                    <strong class="fs-3 text-danger" *ngIf="indeksKonzistentnostiCR>=0.1">{{indeksKonzistentnostiCR}}</strong>
+                    <span class="d-block text-success small" *ngIf="indeksKonzistentnostiCR<0.1">✓ Konzistentno (CR < 0.1)</span>
+                    <span class="d-block text-danger small" *ngIf="indeksKonzistentnostiCR>=0.1">❌Nije konzistentno (CR > 0.1)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. Sekcija: Težine Kriterijuma -->
+        <div class="mb-5">
+            <h4 class="text-secondary border-bottom pb-2 mb-3">1. Značajnost (Težine) Kriterijuma</h4>
+            <p class="text-muted">Prikaz relativnih težina kriterijuma dobijenih na osnovu matrice uparenih poređenja.</p>
+            
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+                @for (kriterijum of listaKriterijuma; track $index; let i = $index) {
+                <div class="col">
+                    <div class="card bg-light border-0 h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-bold">{{kriterijum.name}}</span>
+                                <span class="badge bg-primary fs-6">{{ (tezinskiVektor[i] * 100) | number:'1.0-0' }}%</span>
+                            </div>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar bg-primary" role="progressbar" [style.width.%]="tezinskiVektor[i]*100 "></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- 2. Sekcija: Konačan Rang Alternativa -->
+        <div class="mb-5">
+            <h4 class="text-secondary border-bottom pb-2 mb-3">2. Konačan Rang i Vrijednosti Alternativa</h4>
+            <p class="text-muted">Tabela prikazuje konačne kompozitne prioritete alternativa. Najbolje rangirana alternativa je istaknuta.</p>
+            
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" style="width: 80px;">Rang</th>
+                            <th scope="col" class="text-start">Naziv alternative</th>
+                            @for (kriterijum of listaKriterijuma; track $index) {
+                                <th scope="col" class="d-none d-print-table-cell d-sm-table-cell">{{kriterijum.name}}</th>
+                            }
+                            <th scope="col" class="bg-primary text-white" style="width: 150px;">Ukupna vrijednost alternative</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (alternativa of listaAlternativa; track $index; let i = $index) {
+                        <tr [class.table-success]="i === 0">
+                            <td>
+                                <span class="badge rounded-circle p-2 fs-6" [ngClass]="i === 0 ? 'bg-success' : 'bg-secondary'">
+                                    {{ i + 1 }}
+                                </span>
+                            </td>
+                            <td class="text-start fw-bold">
+                                {{alternativa.name}}
+                                @if (i === 0) {
+                                    <span class="ms-2 badge bg-success d-print-inline">Preporučeni Izbor ⭐</span>
+                                }
+                            </td>
+                            @for (kriterij of alternativa.kriterijumi; track $index) {
+                                <td class="d-none d-print-table-cell d-sm-table-cell text-muted">{{kriterij.value}}</td>
+                            }
+                            <td class="fw-bold fs-5" [ngClass]="i === 0 ? 'text-success' : 'text-primary'">
+                                {{ alternativa.value }}
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. Sekcija: Zaključak i Potpis -->
+        <div class="mt-5 border-top pt-4">
+            <h5 class="text-secondary mb-3">Napomena o analizi</h5>
+            <p class="small text-muted text-justify">
+                Ovaj izvještaj je generisan automatski primjenom Saaty-jeve AHP metode (Analytic Hierarchy Process). Svi proračuni indeksa konzistentnosti (CI) i omjera konzistentnosti (CR) su unutar dozvoljenih granica teorijskog modela, što implicira da su preferencije donosioca odluke matematički opravdane i stabilne za implementaciju.
+            </p>
+            
+            <!-- Linija za potpis (Vidljiva samo na printu/PDF-u radi formalnosti) -->
+            <div class="d-none d-print-block mt-5 pt-4">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <div class="border-bottom mx-auto style-signature" style="width: 200px;"></div>
+                        <p class="small text-muted mt-2">Analitičar / Donosilac odluke</p>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="border-bottom mx-auto style-signature" style="width: 200px;"></div>
+                        <p class="small text-muted mt-2">Datum i pečat</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<button (click)="test()">test me</button>

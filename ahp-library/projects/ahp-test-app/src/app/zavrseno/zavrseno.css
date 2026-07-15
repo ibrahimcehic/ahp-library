@@ -1,0 +1,21 @@
+@media print {
+    body {
+        background: none !important;
+        color: #000 !important;
+    }
+    .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    #ahp-izvjestaj {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+    /* Sprečava da se tabela ili kartice prelomne ružno na pola stranice */
+    tr, .card {
+        page-break-inside: avoid !important;
+    }
+}

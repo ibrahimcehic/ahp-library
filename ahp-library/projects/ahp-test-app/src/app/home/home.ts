@@ -6,10 +6,11 @@ import { MatricaKriterijuma } from "../matrica-kriterijuma/matrica-kriterijuma";
 import { NormalizacijaMatrice } from "../normalizacija-matrice/normalizacija-matrice";
 import { UnosAlternativa } from '../unos-alternativa/unos-alternativa';
 import { Rezultati } from "../rezultati/rezultati";
+import { Zavrseno } from "../zavrseno/zavrseno";
 
 @Component({
   selector: 'app-home',
-  imports: [NgClass, UnosKriterijuma, MatricaKriterijuma, NormalizacijaMatrice, UnosAlternativa, Rezultati],
+  imports: [NgClass, UnosKriterijuma, MatricaKriterijuma, NormalizacijaMatrice, UnosAlternativa, Rezultati, Zavrseno],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
