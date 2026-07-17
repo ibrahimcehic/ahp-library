@@ -1,0 +1,111 @@
+<header class="hero-section text-center shadow"> 
+    <div class="container"> 
+        <div class="badge bg-danger mb-2">Angular Web Komponenta</div> 
+        <h1 class="display-4 fw-bold">ngx-ahp-wizard</h1> 
+        <p class="lead text-muted-50 text-white-50">Moćna, lagana i reaktivna Angular biblioteka za višekriterijsko odlučivanje putem AHP metode.</p> 
+        <div class="mt-4"> 
+            <a href="#workflow" class="btn btn-outline-light btn-lg me-2"><i class="bi bi-play-circle-fill"></i> Pogledaj Tok rada</a> 
+            <a href="#install" class="btn btn-danger btn-lg">Instalacija</a> 
+        </div> 
+    </div> 
+</header> 
+
+<!-- Glavni sadržaj --> 
+<main class="container my-5"> 
+
+    <!-- Kratak Opis --> 
+    <section class="row justify-content-center mb-5 text-center" aria-labelledby="desc-title"> 
+        <div class="col-lg-8"> 
+            <h2 id="desc-title" class="fw-bold mb-3">Automatizacija AHP procesa kroz <span class="angular-text">Angular</span></h2> 
+            <p class="text-muted fs-5"> 
+                Ova biblioteka pretvara složeni matematički proces Analitičkog hijerarhijskog procesa u intuitivno korisničko iskustvo korak-po-korak. Idealna je za integraciju u razlicite sisteme, analitičke panele i aplikacije za podršku odlučivanju. 
+            </p> 
+        </div> 
+    </section> 
+
+    <section id="workflow" class="card shadow-sm p-4 p-md-5 mb-5 border-0 bg-light" ngNonBindable aria-labelledby="workflow-title"> 
+
+        <h2 id="workflow-title" class="visually-hidden">6 Ključnih Koraka</h2>
+        
+        <div class="row"> 
+            <div class="col-lg-4 mb-4 mb-lg-0"> 
+                <div class="sticky-top" style="top: 20px;"> 
+                    <span class="text-uppercase text-danger fw-bold tracking-wider small">Arhitektura</span> 
+                    <h3 class="fw-bold mt-1">6 Ključnih Koraka Wizard-a</h3> 
+                    <p class="text-muted"> 
+                        Biblioteka vodi krajnjeg korisnika kroz linearan i logički validiran proces unosa podataka, izračuna matrica i sumiranja rezultata. 
+                    </p> 
+                    <div class="p-3 bg-white border rounded shadow-sm"> 
+                        <h4 class="h6 fw-bold"><i class="bi bi-shield-check text-success"></i> Automatska Provjera</h4> 
+                        <small class="text-muted text-wrap">Komponenta automatski izračunava indeks konzistentnosti (CR) tokom koraka 2 i 3 te sprječava nastavak ako su unosi nekonzistentni.</small> 
+                    </div> 
+                </div> 
+            </div> 
+            
+            <div class="col-lg-8"> 
+                <div class="timeline"> 
+                    
+                    <!-- Korak 1 --> 
+                    <div class="timeline-item"> 
+                        <span class="step-badge">Korak 1</span> 
+                        <h4 class="fw-bold mt-2 text-dark">Unos Kriterijuma</h4> 
+                        <p class="text-muted">Korisnik definira skup kriterija prema kojima će se ocjenjivati alternative. Biblioteka podržava dinamičko dodavanje i uklanjanje stavki s ugrađenom reaktivnom validacijom formi.</p> 
+                        <div class="border rounded p-2 bg-white d-flex align-items-center gap-2 text-muted small shadow-2xs"> 
+                            <i class="bi bi-list-task text-primary fs-5"></i> <code>FormArray</code> validacija jedinstvenih naziva kriterija. 
+                        </div> 
+                    </div> 
+                    
+                    <!-- Korak 2 --> 
+                    <div class="timeline-item"> 
+                        <span class="step-badge">Korak 2</span> 
+                        <h4 class="fw-bold mt-2 text-dark">Matrica Kriterijuma (Usporedba u parovima)</h4> 
+                        <p class="text-muted">Generira se kvadratna matrica na bazi definiranih kriterija. Korisnik koristi Saatyjevu ljestvicu (1-9) za procjenu relativne važnosti parova. Biblioteka automatski popunjava recipročne vrijednosti ($a&#123;ji&#125; = 1/a&#123;ij&#125;$).</p> 
+                        <div class="border rounded p-2 bg-white d-flex align-items-center gap-2 text-muted small shadow-2xs"> 
+                            <i class="bi bi-grid-3x3 text-warning fs-5"></i> Automatski izračun recipročnih polja u realnom vremenu (RxJS `valueChanges`). 
+                        </div> 
+                    </div> 
+                    
+                    <!-- Korak 3 --> 
+                    <div class="timeline-item"> 
+                        <span class="step-badge">Korak 3</span> 
+                        <h4 class="fw-bold mt-2 text-dark">Normalizacija Matrice</h4> 
+                        <p class="text-muted">Sustav vrši normalizaciju vrijednosti unutar matrice (dijeljenjem svakog elementa kolone sa sumom te kolone). Izračunavaju se prioritetni vektori (težine kriterija) i izračunava se Indeks Konzistentnosti (CR).</p> 
+                        <div class="border rounded p-2 bg-white d-flex align-items-center gap-2 text-muted small shadow-2xs"> 
+                            <i class="bi bi-calculator text-danger fs-5"></i> Računska jezgra izolirana unutar Angular servisa radi očuvanja performansi. 
+                        </div> 
+                    </div> 
+                    
+                    <!-- Korak 4 --> 
+                    <div class="timeline-item"> 
+                        <span class="step-badge">Korak 4</span> 
+                        <h4 class="fw-bold mt-2 text-dark">Unos Alternativa</h4> 
+                        <p class="text-muted">Unos opcija/alternativa koje se takmiče za konačni odabir. Nakon unosa, za svaki pojedinačni kriterij otvara se posebna podmatrica za ocjenjivanje alternativa po tom kriteriju.</p> 
+                        <div class="border rounded p-2 bg-white d-flex align-items-center gap-2 text-muted small shadow-2xs"> 
+                            <i class="bi bi-box-seam text-info fs-5"></i> Dinamičko renderiranje podmatrica ovisno o broju unesenih kriterija. 
+                        </div> 
+                    </div> 
+                    
+                    <!-- Korak 5 --> 
+                    <div class="timeline-item"> 
+                        <span class="step-badge">Korak 5</span> 
+                        <h4 class="fw-bold mt-2 text-dark">Rang Lista</h4> 
+                        <p class="text-muted">Sinteza svih lokalnih prioriteta alternativa u globalne težine. Rezultat se prikazuje u obliku tablice i/ili interaktivnog grafikona poredanih od najbolje do najlošije alternative.</p> 
+                        <div class="border rounded p-2 bg-white d-flex align-items-center gap-2 text-muted small shadow-2xs"> 
+                            <i class="bi bi-sort-numeric-down text-success fs-5"></i> Sortirani ispis unutar Angular `*ngFor` petlje sa postotnim prikazom važnosti. 
+                        </div> 
+                    </div> 
+                    
+                    <!-- Korak 6 --> 
+                    <div class="timeline-item pb-0"> 
+                        <span class="step-badge bg-success">Korak 6</span> 
+                        <h4 class="fw-bold mt-2 text-dark">Sumiranje Rezultata - Kraj</h4> 
+                        <p class="text-muted">Završni izvještaj sa svim detaljima procesa odlučivanja (kriteriji, težine, konzistentnost). Pruža mogućnost eksporta podataka u JSON format ili generiranje datoteke spremne za ispis.</p> 
+                        <div class="border rounded p-2 bg-white d-flex align-items-center gap-2 text-muted small shadow-2xs"> 
+                            <i class="bi bi-check-circle-fill text-success fs-5"></i> Emitiranje konačnog objekta putem Angular `@Output` event-a za pohranu na backend. 
+                        </div> 
+                    </div> 
+                    
+                </div> 
+            </div> 
+        </div> 
+    </section>

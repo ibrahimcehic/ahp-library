@@ -1,0 +1,53 @@
+:root {
+            --primary-angular: #dd0031;
+            --secondary-dark: #1e1e24;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, var(--secondary-dark) 0%, #3a3a43 100%);
+            color: white;
+            padding: 60px 0;
+        }
+        .angular-text {
+            color: var(--primary-angular);
+            font-weight: bold;
+        }
+        /* Custom Timeline za 6 koraka */
+        .timeline {
+            position: relative;
+            border-left: 3px solid #dee2e6;
+            padding-left: 20px;
+            margin-left: 10px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -29px;
+            top: 5px;
+            background: white;
+            border: 3px solid var(--primary-angular);
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            z-index: 2;
+        }
+        .step-badge {
+            background-color: var(--secondary-dark);
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        code {
+            color: var(--primary-angular);
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-angular);
+            padding: 15px;
+            font-family: monospace;
+            border-radius: 0 4px 4px 0;
+        }

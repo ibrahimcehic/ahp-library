@@ -1,0 +1,13 @@
+.hero-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 60px 0;
+        }
+        .step-icon {
+            font-size: 2.5rem;
+            color: #2a5298;
+        }
+        .matrix-table th, .matrix-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
