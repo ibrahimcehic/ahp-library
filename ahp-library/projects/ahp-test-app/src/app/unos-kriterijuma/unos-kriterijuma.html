@@ -8,7 +8,8 @@
           class="form-control"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-lg"
-          [(ngModel)]="nazivProjekta"
+          [value]="nazivProjekta()"
+         (input)="setImeProjekta($event)" 
            />
       </div>
     </div>
@@ -69,7 +70,7 @@
             </tr>
           </thead>
           <tbody>
-            @for (kriterijum of kriterijumiIzServisa; track $index; let i = $index) {
+            @for (kriterijum of kriterijumiIzServisa(); track $index; let i = $index) {
               <tr>
                 <th>{{ i + 1 }}</th>
                 <td>{{ kriterijum.name }}</td>

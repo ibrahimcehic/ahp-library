@@ -19,10 +19,10 @@ export class Zavrseno {
 listaAlternativa = this.alternativS.listaAlternativaSaVrijednostima()
 tezinskiVektor = this.matricaS.tezinskiVektor()
 currentDate = new Date()
-projectName: string= this.dataS.nazivProjekta();
+projectName = this.dataS.nazivProjekta;
 indeksKonzistentnostiCR = this.matricaS.omjerKonzistencijeCR()
 
 test(){
-  console.log("ispis liste alternativa iz zavrseno komponente: ", this.listaAlternativa)
+  console.log("ispis naziva projekta:", this.dataS.nazivProjekta())
 }
 }
