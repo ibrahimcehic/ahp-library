@@ -1,6 +1,9 @@
 {
   "name": "ahp-library",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Analitički hijerahijski proces- biblioteka",
+  "author": {"email": "c.ibrahim.vkl@hotmail.com","name": "Ibrahim Cehic"},
+  "repository": {"type": "git","url": "https://github.com/ibrahimcehic/ahp-library.git"},
   "peerDependencies": {
     "@angular/common": "^20.3.0",
     "@angular/core": "^20.3.0"
